@@ -46,11 +46,6 @@
             <version>1.18.24</version>
         </dependency>
         <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-            <version>6.0.0</version>
-        </dependency>
-        <dependency>
             <groupId>com.github.ksuid</groupId>
             <artifactId>ksuid</artifactId>
             <version>1.0.0</version>
