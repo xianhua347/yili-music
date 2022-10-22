@@ -1,7 +1,6 @@
 package com.bilitech.yilimusic.enetity;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GeneratorType;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.GeneratedValue;
