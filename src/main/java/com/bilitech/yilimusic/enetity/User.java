@@ -1,5 +1,6 @@
 package com.bilitech.yilimusic.enetity;
 
+import com.bilitech.yilimusic.Enums.Gender;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,7 +17,8 @@ public class User extends BaseEntity{
 
   private String password;
 
-  private String gender;
+  @Enumerated(EnumType.STRING)
+  private Gender gender;
 
   private Boolean locked = false;
 
