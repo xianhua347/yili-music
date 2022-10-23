@@ -1,5 +1,6 @@
 package com.bilitech.yilimusic.controller;
 
+import com.bilitech.yilimusic.Mapper.Dto.UserCreateDto;
 import com.bilitech.yilimusic.Service.UserService;
 import com.bilitech.yilimusic.Mapper.UserMapper;
 import com.bilitech.yilimusic.VO.UserVO;
@@ -18,9 +19,9 @@ public class UserController {
     }
 
 
-    @GetMapping("/name/{username}")
-    public UserVO findByUsername(@PathVariable String username){
-        return userMapper.toVo(userService.findByUsername(username));
+    @PostMapping("/")
+    public UserVO create(@RequestBody UserCreateDto userCreateDto){
+        return userMapper.toVo(userService.create(userCreateDto));
     }
 
     @GetMapping("/{id}")

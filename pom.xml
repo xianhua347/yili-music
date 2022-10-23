@@ -63,6 +63,10 @@
             <version>1.4.2.Final</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

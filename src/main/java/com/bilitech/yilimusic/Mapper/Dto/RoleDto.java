@@ -1,4 +1,4 @@
-package com.bilitech.yilimusic.Dto;
+package com.bilitech.yilimusic.Mapper.Dto;
 
 import lombok.Data;
 

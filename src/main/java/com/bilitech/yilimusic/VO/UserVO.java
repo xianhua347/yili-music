@@ -1,6 +1,6 @@
 package com.bilitech.yilimusic.VO;
 
-import com.bilitech.yilimusic.Dto.RoleDto;
+import com.bilitech.yilimusic.Mapper.Dto.RoleDto;
 import com.bilitech.yilimusic.Enums.Gender;
 import lombok.Data;
 

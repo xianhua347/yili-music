@@ -1,5 +1,6 @@
 package com.bilitech.yilimusic.enetity;
 
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -10,12 +11,13 @@ import java.util.Date;
 
 
 
+@Data
 @MappedSuperclass
-public abstract class BaseEntity {
+public abstract class AbstractEntity {
     @Id
     @GeneratedValue(generator = "ksuid")
     @GenericGenerator(name = "ksuid", strategy = "com.bilitech.yilimusic.utils.KsuidIdentifierGenerator")
-    private String id;
+    public String id;
 
     @CreationTimestamp
     private Date createdTime;
