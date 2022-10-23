@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 public class User extends BaseEntity{
 
-    @Column(unique = true)
+  @Column(unique = true)
   private String username;
 
   private String nickname;

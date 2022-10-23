@@ -1,6 +1,8 @@
 package com.bilitech.yilimusic.Repository;
 
 import com.bilitech.yilimusic.Enums.Gender;
+import com.bilitech.yilimusic.Mapper.UserMapper;
+import com.bilitech.yilimusic.VO.UserVO;
 import com.bilitech.yilimusic.enetity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
