@@ -10,11 +10,13 @@ import java.util.List;
 @Data
 public class User extends BaseEntity{
 
-  @Column(unique = true)
+  @Column(unique = true, length = 64)
   private String username;
 
+  @Column(length = 64)
   private String nickname;
 
+  @Column(length = 64)
   private String password;
 
   @Enumerated(EnumType.STRING)
