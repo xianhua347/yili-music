@@ -4,6 +4,7 @@ import com.bilitech.yilimusic.Mapper.Dto.UserCreateDto;
 import com.bilitech.yilimusic.Service.UserService;
 import com.bilitech.yilimusic.Mapper.UserMapper;
 import com.bilitech.yilimusic.VO.UserVO;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController()
