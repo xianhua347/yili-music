@@ -1,6 +1,6 @@
 package com.bilitech.yilimusic.controller;
 
-import com.bilitech.yilimusic.Mapper.Dto.UserCreateDto;
+import com.bilitech.yilimusic.Dto.UserCreateDto;
 import com.bilitech.yilimusic.Service.UserService;
 import com.bilitech.yilimusic.Mapper.UserMapper;
 import com.bilitech.yilimusic.VO.UserVO;
