@@ -50,7 +50,7 @@ jobs:
       - name: Connect to server
         uses: appleboy/ssh-action@master
         with:
-          host: REMOTE_SERVER_IP
+          host: ${{ secrets.REMOTE_SERVER_IP }}
           username: ${{ secrets.REMOTE_SERVER_USERNAME }}
           password: ${{ secrets.REMOTE_SERVER_PASSWORD }}
           script: |
