@@ -1,0 +1,20 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: YiliMusic
+  datasource:
+    url: ENC(6bbxY0J9hMxT5zcRBkPmtzbUQUVRe7oOY4Z7g3Zkn7+1CtIPnlDhv3yqsSatQWyb5CB+AFn0tVTotiN4vGFXuIPLmEbxy1TJj53JBeF+lY0VTMfzlwTPYJDKSMyqFNrvc8Yi16h0toK/twJ3w5MBZZn8UzcAaxqsssRpSqloLtWP8UB5UxGIgHrYbc3aWzAE)
+    username: ENC(ikLDZ/mU7dYI5oQZgymrR3vPojojRzO8JNpqof5MUHcjYQpilo6Dq3g+5N8qoqF0)
+    password: ENC(rL7CybIHvUexARp4F52iHThMM+wpcfrKJXTH6gNgMgeYtZmHGbVqYzrZOlespGZ6)
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    properties:
+      hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
+      generate-ddl: false
+      hibernate.ddl-auto: none
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+# jasypt.encryptor.password=xiaohuahuaffsxDDJ2435
