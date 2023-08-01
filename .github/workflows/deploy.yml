@@ -25,10 +25,10 @@ jobs:
         with:
           context: .
           push: true
-          tags: chenxianhua123/${{ secrets.CONTAINER_NAME }}:latest
+          tags: chenxianhua123/${{ variables.CONTAINER_NAME }}:latest
 
       - name: Push Docker Image to Docker Hub
-        run: docker push your-docker-username/${{ secrets.CONTAINER_NAME }}
+        run: chenxianhua123/${{ variables.CONTAINER_NAME }}
 
       - name: SSH into remote server
         uses: appleboy/ssh-action@master
@@ -37,7 +37,7 @@ jobs:
           username: ${{ secrets.REMOTE_SERVER_USERNAME }}
           password: ${{ secrets.REMOTE_SERVER_PASSWORD }}
           script: |
-            docker pull your-docker-username/${{ secrets.CONTAINER_NAME }}
-            docker stop ${{ secrets.CONTAINER_NAME }} || true
-            docker rm ${{ secrets.CONTAINER_NAME }} || true
-            docker run -d --name ${{ secrets.CONTAINER_NAME }} -p 5431:8080 your-docker-username/${{ secrets.CONTAINER_NAME }}
+            docker pull ychenxianhua123/${{ variables.CONTAINER_NAME }}
+            docker stop ${{ variables.CONTAINER_NAME }} || true
+            docker rm ${{ variables.CONTAINER_NAME }} || true
+            docker run -d --name ${{ variables.CONTAINER_NAME }} -p 5431:8080 your-docker-username/${{ variables.CONTAINER_NAME }}
