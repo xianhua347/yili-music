@@ -57,4 +57,4 @@ jobs:
             docker stop ${{ env.CONTAINER_NAME }} || true
             docker rm ${{ env.CONTAINER_NAME }} || true
             docker pull ${{ secrets.DOCKER_HUB_USER }}/${{ env.CONTAINER_NAME }}:${{ env.IMAGE_TAG }}
-            docker run --name ${{ env.CONTAINER_NAME }} -p 5431:8080  -d ${{ secrets.DOCKER_HUB_USER }}/${{ env.CONTAINER_NAME }}:${{ env.IMAGE_TAG }}
+            docker run --name ${{ env.CONTAINER_NAME }} -p 5431:8080 -d ${{ secrets.DOCKER_HUB_USER }}/${{ env.CONTAINER_NAME }}:${{ env.IMAGE_TAG }}
