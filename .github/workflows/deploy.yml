@@ -29,7 +29,7 @@ jobs:
           tags: chenxianhua123/${{ env.CONTAINER_NAME }}:latest
 
       - name: Push Docker Image to Docker Hub
-        run: chenxianhua123/${{ env.CONTAINER_NAME }}
+        run: chenxianhua123/${{ env.CONTAINER_NAME }}:latest
 
       - name: SSH into remote server
         uses: appleboy/ssh-action@master
@@ -38,7 +38,7 @@ jobs:
           username: ${{ secrets.REMOTE_SERVER_USERNAME }}
           password: ${{ secrets.REMOTE_SERVER_PASSWORD }}
           script: |
-            docker pull chenxianhua123/${{ env.CONTAINER_NAME }}
+            docker pull chenxianhua123/${{ env.CONTAINER_NAME }}:latest
             docker stop ${{ env.CONTAINER_NAME }} || true
             docker rm ${{ env.CONTAINER_NAME }} || true
             docker run -d --name ${{ env.CONTAINER_NAME }} -p 5431:8080 chenxianhua123/${{ env.CONTAINER_NAME }}
