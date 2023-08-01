@@ -1,14 +1,22 @@
 package com.bilitech.yilimusic.enetity;
 
 import com.bilitech.yilimusic.Enums.Gender;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import javax.persistence.*;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
 
 @Entity
 @Data
@@ -37,7 +45,9 @@ public class User extends AbstractEntity implements UserDetails {
   private String lastLoginIp;
 
   @Column(name = "last_login_time")
-  private Date lastLoginTime;
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  private LocalDateTime lastLoginTime;
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "user_role",

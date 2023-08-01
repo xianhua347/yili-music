@@ -5,7 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.bilitech.yilimusic.config.AuthenticationConfigConstants;
 import com.bilitech.yilimusic.enetity.User;
 import com.bilitech.yilimusic.exception.BizException;
-import com.bilitech.yilimusic.exception.ExceptionType;
+import com.bilitech.yilimusic.Enums.ExceptionType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

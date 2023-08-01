@@ -1,5 +1,7 @@
 package com.bilitech.yilimusic.exception;
 
+import com.bilitech.yilimusic.Enums.ExceptionType;
+
 /**
  * 业务异常处理
  */

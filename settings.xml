@@ -157,12 +157,12 @@ under the License.
     </mirror>
      -->
 
-    <mirror>
+    <!--<mirror>
       <id>tencent</id>
       <name>tencent maven mirror</name>
       <url>https://mirrors.tencent.com/nexus/repository/maven-public/</url>
       <mirrorOf>*</mirrorOf>
-    </mirror>
+    </mirror>-->
   </mirrors>
 
   <!-- profiles

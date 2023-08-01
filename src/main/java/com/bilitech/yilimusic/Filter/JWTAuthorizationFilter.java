@@ -55,12 +55,13 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter{
      * @return UsernamePasswordAuthenticationToken
      */
     private UsernamePasswordAuthenticationToken getAuthentication(String header) {
-
+        //如果有token就进行解析
         if (header != null){
             String username = JWT.require(Algorithm.HMAC512(AuthenticationConfigConstants.SECRET.getBytes()))
                     .build()
                     .verify(header.replace(AuthenticationConfigConstants.TOKEN_PREFIX,""))
                     .getSubject();
+            //判断用户名是否为空 如果不为空就返回一个用户权限的token
             if (username != null){
                 //返回一个用户权限的token
                 return new UsernamePasswordAuthenticationToken(username,null,new ArrayList<>());

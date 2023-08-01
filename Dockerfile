@@ -1,6 +1,4 @@
-# 写在最前面：强烈建议先阅读官方教程[Dockerfile最佳实践]（https://docs.docker.com/develop/develop-images/dockerfile_best-practices/）
-# 选择构建用基础镜像（选择原则：在包含所有用到的依赖前提下尽可能提及小）。如需更换，请到[dockerhub官方仓库](https://hub.docker.com/_/java?tab=tags)自行选择后替换。
-FROM maven:3.6.0-jdk-8-slim as build
+FROM maven:3.6.3-jdk-11-slim as build
 
 # 指定构建过程中的工作目录
 WORKDIR /app
@@ -15,14 +13,11 @@ COPY settings.xml pom.xml /app/
 RUN mvn -s /app/settings.xml -f /app/pom.xml clean package -Dspring.profiles.active=prod -Dmaven.test.skip=true
 
 # 选择运行时基础镜像
-FROM alpine:3.13
+FROM adoptopenjdk:11-jdk-hotspot
 
-RUN apk add ca-certificates
-
-# 安装依赖包，如需其他依赖包，请到alpine依赖包管理(https://pkgs.alpinelinux.org/packages?name=php8*imagick*&branch=v3.13)查找。
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tencent.com/g' /etc/apk/repositories \
-    && apk add --update --no-cache openjdk8-jre-base \
-    && rm -f /var/cache/apk/*
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
 
 # 指定运行时的工作目录
 WORKDIR /app

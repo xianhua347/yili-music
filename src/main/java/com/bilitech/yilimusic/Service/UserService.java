@@ -13,7 +13,8 @@ public interface UserService extends UserDetailsService {
 
     UserDto get(String id);
 
+    String login(UserCreateDto userCreateDto);
+
     @Override
     User loadUserByUsername(String username) throws UsernameNotFoundException;
-
 }

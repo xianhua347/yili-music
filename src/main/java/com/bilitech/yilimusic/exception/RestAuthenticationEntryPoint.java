@@ -1,8 +1,7 @@
 package com.bilitech.yilimusic.exception;
 
 import cn.hutool.json.JSONUtil;
-import com.bilitech.yilimusic.exception.ErrorResponse;
-import com.bilitech.yilimusic.exception.ExceptionType;
+import com.bilitech.yilimusic.Enums.ExceptionType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -12,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @author admin
+ */
 @Component
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
 

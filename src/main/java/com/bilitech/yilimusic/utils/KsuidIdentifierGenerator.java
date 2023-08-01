@@ -11,13 +11,14 @@ import java.io.Serializable;
 
 /**
  * 实体类主键生成器
+ * @author 陈现府
  */
 @Component
 public class KsuidIdentifierGenerator implements IdentifierGenerator {
 
     /**
      * @param sharedSessionContractImplementor
-     * @param o
+     * @param o 对象
      * @return entity PRIMARY Key
      * @throws HibernateException
      */
