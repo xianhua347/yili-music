@@ -22,17 +22,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Data
 public class User extends AbstractEntity implements UserDetails {
 
-  @Column(unique = true, length = 64,name = "username")
+  @Column(unique = true, length = 64, name = "username")
   private String username;
 
-  @Column(length = 64,name = "nickname")
+  @Column(length = 64, name = "nickname")
   private String nickname;
 
-  @Column(length = 64,name = "password")
+  @Column(length = 64, name = "password")
   private String password;
 
   @Enumerated(EnumType.STRING)
-  @Column(length = 225,name = "gender")
+  @Column(length = 225, name = "gender")
   private Gender gender;
 
   @Column(name = "locked")
@@ -41,7 +41,7 @@ public class User extends AbstractEntity implements UserDetails {
   @Column(name = "enabled")
   private Boolean enabled = true;
 
-  @Column(name ="last_login_ip")
+  @Column(name = "last_login_ip")
   private String lastLoginIp;
 
   @Column(name = "last_login_time")
@@ -51,8 +51,8 @@ public class User extends AbstractEntity implements UserDetails {
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "user_role",
-          joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id"),
-          inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "id"))
+      joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+      inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
   private List<Role> roles;
 
   @Override
@@ -67,7 +67,7 @@ public class User extends AbstractEntity implements UserDetails {
 
   @Override
   public boolean isAccountNonLocked() {
-    return !getLocked();
+    return ! getLocked();
   }
 
   @Override

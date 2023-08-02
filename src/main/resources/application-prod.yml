@@ -10,11 +10,11 @@ spring:
     password: ENC(rL7CybIHvUexARp4F52iHThMM+wpcfrKJXTH6gNgMgeYtZmHGbVqYzrZOlespGZ6)
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
+    hibernate:
+      ddl-auto: validate
     properties:
       hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
       generate-ddl: false
-      hibernate.ddl-auto: none
   flyway:
     enabled: true
     baseline-on-migrate: true
-# jasypt.encryptor.password=xiaohuahuaffsxDDJ2435

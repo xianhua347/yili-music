@@ -3,11 +3,11 @@ package com.bilitech.yilimusic.VO;
 import lombok.Data;
 
 @Data
-public class RoleVO extends BaseVO{
+public class RoleVO extends BaseVO {
 
-    private String id;
+  private String id;
 
-    private String name;
+  private String name;
 
-    private String title;
+  private String title;
 }

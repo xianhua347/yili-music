@@ -2,11 +2,6 @@ package com.bilitech.yilimusic.utils;
 
 import java.io.Serializable;
 import lombok.Data;
-
-/**
- * @author admin
- */
-import lombok.Data;
 import org.springframework.http.HttpStatus;
 
 @Data

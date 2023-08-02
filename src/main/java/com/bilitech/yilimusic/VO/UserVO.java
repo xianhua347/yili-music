@@ -1,23 +1,22 @@
 package com.bilitech.yilimusic.VO;
 
-import com.bilitech.yilimusic.Mapper.Dto.RoleDto;
 import com.bilitech.yilimusic.Enums.Gender;
+import com.bilitech.yilimusic.Mapper.Dto.RoleDto;
+import java.util.List;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
-public class UserVO extends BaseVO{
+public class UserVO extends BaseVO {
 
-    private String username;
+  private String username;
 
-    private String nickname;
+  private String nickname;
 
-    private Gender gender;
+  private Gender gender;
 
-    private Boolean locked;
+  private Boolean locked;
 
-    private Boolean enabled;
+  private Boolean enabled;
 
-    private List<RoleDto> roles;
+  private List<RoleDto> roles;
 }

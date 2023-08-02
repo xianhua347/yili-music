@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/hello")
 public class DefaultController {
 
-    @GetMapping
-    public String sayHello() {
-        return "欢迎程序猿依力的音乐盒";
-    }
+  @GetMapping
+  public String sayHello() {
+    return "欢迎程序猿依力的音乐盒";
+  }
 }

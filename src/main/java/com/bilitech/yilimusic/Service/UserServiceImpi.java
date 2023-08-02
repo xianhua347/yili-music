@@ -2,6 +2,7 @@ package com.bilitech.yilimusic.Service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.bilitech.yilimusic.Enums.ExceptionType;
 import com.bilitech.yilimusic.Mapper.Dto.UserCreateDto;
 import com.bilitech.yilimusic.Mapper.Dto.UserDto;
 import com.bilitech.yilimusic.Mapper.UserMapper;
@@ -9,7 +10,6 @@ import com.bilitech.yilimusic.Repository.UserRepository;
 import com.bilitech.yilimusic.config.AuthenticationConfigConstants;
 import com.bilitech.yilimusic.enetity.User;
 import com.bilitech.yilimusic.exception.BizException;
-import com.bilitech.yilimusic.Enums.ExceptionType;
 import java.util.Date;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
