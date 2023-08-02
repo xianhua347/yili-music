@@ -1,10 +1,12 @@
 package com.bilitech.yilimusic.exception;
 
 import com.bilitech.yilimusic.Enums.ExceptionType;
+import lombok.Getter;
 
 /**
  * 业务异常处理
  */
+@Getter
 public class BizException extends RuntimeException{
 
     private final Integer code;
@@ -14,7 +16,4 @@ public class BizException extends RuntimeException{
         this.code = exceptionType.getCode();
     }
 
-    public Integer getCode() {
-        return code;
-    }
 }

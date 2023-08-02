@@ -1,9 +1,12 @@
 package com.bilitech.yilimusic.Enums;
 
+import lombok.Getter;
+
 /**
  * 业务异常Code
  * @author 陈现府
  */
+@Getter
 public enum ExceptionType {
 
     INNER_ERROR(500,"内部错误"),
@@ -35,14 +38,6 @@ public enum ExceptionType {
     ExceptionType(Integer code, String message) {
         this.code = code;
         this.message = message;
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
     }
 
 }
