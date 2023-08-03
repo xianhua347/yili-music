@@ -11,7 +11,7 @@ public interface UserService extends UserDetailsService {
 
   UserDto create(UserCreateDto userCreateDto);
 
-  UserDto get(String id);
+  UserDto getUser(String id);
 
   String login(UserCreateDto userCreateDto);
 

@@ -35,7 +35,7 @@ public class UserController {
 
   @GetMapping("{name}")
   public ApiResponse<UserVO> get(@PathVariable String name) {
-    return ApiResponse.success(userMapper.toVo(userService.get(name)));
+    return ApiResponse.success(userMapper.toVo(userService.getUser(name)));
   }
 
   @PostMapping("login")

@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
  * @author 陈现府
  */
 @Service
-public class UserServiceImpi implements UserService {
+public class UserServiceImpI implements UserService {
 
   private final UserRepository userRepository;
 
@@ -27,7 +27,7 @@ public class UserServiceImpi implements UserService {
 
   private final PasswordEncoder passwordEncoder;
 
-  public UserServiceImpi(UserRepository userRepository, UserMapper userMapper,
+  public UserServiceImpI(UserRepository userRepository, UserMapper userMapper,
       PasswordEncoder passwordEncoder) {
     this.userRepository = userRepository;
     this.userMapper = userMapper;
@@ -50,8 +50,8 @@ public class UserServiceImpi implements UserService {
   }
 
   @Override
-  public UserDto get(String id) {
-    return userMapper.toDto(userRepository.getById(id));
+  public UserDto getUser(String username) {
+    return userMapper.toDto(this.loadUserByUsername(username));
   }
 
   @Override
