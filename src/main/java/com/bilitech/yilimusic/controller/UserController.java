@@ -5,7 +5,6 @@ import com.bilitech.yilimusic.Mapper.UserMapper;
 import com.bilitech.yilimusic.Service.UserService;
 import com.bilitech.yilimusic.VO.UserVO;
 import com.bilitech.yilimusic.utils.ApiResponse;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author admin
  */
 @RestController()
-@RequestMapping("/users")
+@RequestMapping("users")
 public class UserController {
 
   final private UserMapper userMapper;
@@ -29,21 +28,18 @@ public class UserController {
     this.userService = userService;
   }
 
-
-  @PostMapping("/")
-  public ResponseEntity<ApiResponse<UserVO>> create(@RequestBody UserCreateDto userCreateDto) {
-    return ResponseEntity.ok(
-        ApiResponse.success(userMapper.toVo(userService.create(userCreateDto))));
+  @PostMapping("register")
+  public ApiResponse<UserVO> create(@RequestBody UserCreateDto userCreateDto) {
+    return ApiResponse.success(userMapper.toVo(userService.create(userCreateDto)));
   }
 
-  @GetMapping("/{name}")
-  UserVO get(@PathVariable String name) {
-    return userMapper.toVo(userService.loadUserByUsername(name));
+  @GetMapping("{name}")
+  public ApiResponse<UserVO> get(@PathVariable String name) {
+    return ApiResponse.success(userMapper.toVo(userService.get(name)));
   }
 
-  @PostMapping("/login")
-  public ResponseEntity<ApiResponse<String>> login(@RequestBody UserCreateDto userCreateDto) {
-    String token = userService.login(userCreateDto);
-    return ResponseEntity.ok(ApiResponse.success(token));
+  @PostMapping("login")
+  public ApiResponse<String> login(@RequestBody UserCreateDto userCreateDto) {
+    return ApiResponse.success(userService.login(userCreateDto));
   }
 }
