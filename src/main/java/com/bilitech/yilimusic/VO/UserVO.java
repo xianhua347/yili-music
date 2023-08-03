@@ -1,7 +1,7 @@
 package com.bilitech.yilimusic.VO;
 
 import com.bilitech.yilimusic.Enums.Gender;
-import com.bilitech.yilimusic.Mapper.Dto.RoleDto;
+import com.bilitech.yilimusic.DTO.RoleDTO;
 import java.util.List;
 import lombok.Data;
 
@@ -18,5 +18,5 @@ public class UserVO extends BaseVO {
 
   private Boolean enabled;
 
-  private List<RoleDto> roles;
+  private List<RoleDTO> roles;
 }

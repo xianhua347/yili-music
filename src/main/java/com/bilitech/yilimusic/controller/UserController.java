@@ -1,6 +1,6 @@
 package com.bilitech.yilimusic.controller;
 
-import com.bilitech.yilimusic.Mapper.Dto.UserCreateDto;
+import com.bilitech.yilimusic.DTO.UserCreateDTO;
 import com.bilitech.yilimusic.Mapper.UserMapper;
 import com.bilitech.yilimusic.Service.UserService;
 import com.bilitech.yilimusic.VO.UserVO;
@@ -29,17 +29,18 @@ public class UserController {
   }
 
   @PostMapping("register")
-  public ApiResponse<UserVO> create(@RequestBody UserCreateDto userCreateDto) {
+  public ApiResponse<UserVO> create(@RequestBody UserCreateDTO userCreateDto) {
     return ApiResponse.success(userMapper.toVo(userService.create(userCreateDto)));
   }
 
   @GetMapping("{name}")
   public ApiResponse<UserVO> get(@PathVariable String name) {
+    System.out.println(userService.getUser(name).toString());
     return ApiResponse.success(userMapper.toVo(userService.getUser(name)));
   }
 
   @PostMapping("login")
-  public ApiResponse<String> login(@RequestBody UserCreateDto userCreateDto) {
+  public ApiResponse<String> login(@RequestBody UserCreateDTO userCreateDto) {
     return ApiResponse.success(userService.login(userCreateDto));
   }
 }

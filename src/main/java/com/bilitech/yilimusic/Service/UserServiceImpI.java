@@ -3,8 +3,8 @@ package com.bilitech.yilimusic.Service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.bilitech.yilimusic.Enums.ExceptionType;
-import com.bilitech.yilimusic.Mapper.Dto.UserCreateDto;
-import com.bilitech.yilimusic.Mapper.Dto.UserDto;
+import com.bilitech.yilimusic.DTO.UserCreateDTO;
+import com.bilitech.yilimusic.DTO.UserDTO;
 import com.bilitech.yilimusic.Mapper.UserMapper;
 import com.bilitech.yilimusic.Repository.UserRepository;
 import com.bilitech.yilimusic.config.AuthenticationConfigConstants;
@@ -36,7 +36,7 @@ public class UserServiceImpI implements UserService {
 
 
   @Override
-  public UserDto create(UserCreateDto userCreateDto) {
+  public UserDTO create(UserCreateDTO userCreateDto) {
     checkUserName(userCreateDto.getUsername());
     final User user = userMapper.createEntity(userCreateDto);
     user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -50,7 +50,7 @@ public class UserServiceImpI implements UserService {
   }
 
   @Override
-  public UserDto getUser(String username) {
+  public UserDTO getUser(String username) {
     return userMapper.toDto(this.loadUserByUsername(username));
   }
 
@@ -61,7 +61,7 @@ public class UserServiceImpI implements UserService {
   }
 
   @Override
-  public String login(UserCreateDto userCreateDto) {
+  public String login(UserCreateDTO userCreateDto) {
     final User user = loadUserByUsername(userCreateDto.getUsername());
     final String providedPassword = userCreateDto.getPassword();
 
