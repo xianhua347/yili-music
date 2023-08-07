@@ -1,11 +1,12 @@
 package com.bilitech.yilimusic.config;
 
+// import com.bilitech.yilimusic.Filter.JWTAuthenticationFilter;
+
 import com.bilitech.yilimusic.Filter.JWTAuthenticationFilter;
 import com.bilitech.yilimusic.Filter.JWTAuthorizationFilter;
 import com.bilitech.yilimusic.Service.UserService;
 import com.bilitech.yilimusic.exception.RestAuthenticationEntryPoint;
 import javax.annotation.Resource;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,7 +18,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
  * @author 陈现府
  */
 @EnableWebSecurity
-@Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Resource

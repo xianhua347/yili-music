@@ -19,6 +19,8 @@ public enum ExceptionType {
   FORBIDDEN(403, "无权操作"),
 
   NOT_FOUND(404, "未找到"),
+  USER_DELETE_FAILED(4000105, "用户删除失败"),
+  USER_UPDATE_FAILED(4000106, "用户更新失败"),
 
   USER_NAME_DUPLICATE(4000101, "用户名重复"),
   USERNAME_ALREADY_EXIST(4000101, "用户已存在"),

@@ -1,11 +1,16 @@
-package com.bilitech.yilimusic.DTO;
+package com.bilitech.yilimusic.DTO.user;
 
+import com.bilitech.yilimusic.DTO.BaseDTO;
 import com.bilitech.yilimusic.Enums.Gender;
 import java.time.LocalDateTime;
 import java.util.List;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class UserDTO extends BaseDTO {
 
   private String username;

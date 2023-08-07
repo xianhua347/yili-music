@@ -1,11 +1,16 @@
 package com.bilitech.yilimusic.VO;
 
+import com.bilitech.yilimusic.DTO.user.RoleDTO;
 import com.bilitech.yilimusic.Enums.Gender;
-import com.bilitech.yilimusic.DTO.RoleDTO;
 import java.util.List;
 import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class UserVO extends BaseVO {
 
   private String username;
