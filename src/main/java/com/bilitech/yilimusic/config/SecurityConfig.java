@@ -1,10 +1,12 @@
 package com.bilitech.yilimusic.config;
 
+// import com.bilitech.yilimusic.Filter.JWTAuthenticationFilter;
+
 import com.bilitech.yilimusic.Filter.JWTAuthenticationFilter;
 import com.bilitech.yilimusic.Filter.JWTAuthorizationFilter;
 import com.bilitech.yilimusic.Service.UserService;
 import com.bilitech.yilimusic.exception.RestAuthenticationEntryPoint;
-import org.springframework.context.annotation.Configuration;
+import javax.annotation.Resource;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,24 +18,18 @@ import org.springframework.security.config.http.SessionCreationPolicy;
  * @author 陈现府
  */
 @EnableWebSecurity
-@Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-  private final UserService userService;
-
-  private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
-
-  public SecurityConfig(UserService userService,
-      RestAuthenticationEntryPoint restAuthenticationEntryPoint) {
-    this.userService = userService;
-    this.restAuthenticationEntryPoint = restAuthenticationEntryPoint;
-  }
+  @Resource
+  private UserService userService;
+  @Resource
+  private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.cors().and().csrf().disable().authorizeRequests()
         .antMatchers(HttpMethod.POST, AuthenticationConfigConstants.SIGN_UP_URL).permitAll()
-        .antMatchers("/users/login","/users/register").permitAll()
+        .antMatchers("/users/login", "/users/register").permitAll()
         .antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
         .anyRequest().authenticated()
         .and()

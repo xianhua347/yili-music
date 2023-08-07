@@ -2,15 +2,25 @@ package com.bilitech.yilimusic.Service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.bilitech.yilimusic.DTO.user.UserCreateDTO;
+import com.bilitech.yilimusic.DTO.user.UserDTO;
+import com.bilitech.yilimusic.DTO.user.UserLoginDTO;
+import com.bilitech.yilimusic.DTO.user.UserQueryDTO;
+import com.bilitech.yilimusic.DTO.user.UserUpdateDTO;
 import com.bilitech.yilimusic.Enums.ExceptionType;
-import com.bilitech.yilimusic.Mapper.Dto.UserCreateDto;
-import com.bilitech.yilimusic.Mapper.Dto.UserDto;
 import com.bilitech.yilimusic.Mapper.UserMapper;
 import com.bilitech.yilimusic.Repository.UserRepository;
 import com.bilitech.yilimusic.config.AuthenticationConfigConstants;
+import com.bilitech.yilimusic.enetity.QUser;
 import com.bilitech.yilimusic.enetity.User;
 import com.bilitech.yilimusic.exception.BizException;
+import com.bilitech.yilimusic.utils.QueryRequest;
+import com.querydsl.core.BooleanBuilder;
 import java.util.Date;
+import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,6 +29,7 @@ import org.springframework.stereotype.Service;
  * @author 陈现府
  */
 @Service
+@AllArgsConstructor
 public class UserServiceImpI implements UserService {
 
   private final UserRepository userRepository;
@@ -27,16 +38,8 @@ public class UserServiceImpI implements UserService {
 
   private final PasswordEncoder passwordEncoder;
 
-  public UserServiceImpI(UserRepository userRepository, UserMapper userMapper,
-      PasswordEncoder passwordEncoder) {
-    this.userRepository = userRepository;
-    this.userMapper = userMapper;
-    this.passwordEncoder = passwordEncoder;
-  }
-
-
   @Override
-  public UserDto create(UserCreateDto userCreateDto) {
+  public UserDTO create(UserCreateDTO userCreateDto) {
     checkUserName(userCreateDto.getUsername());
     final User user = userMapper.createEntity(userCreateDto);
     user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -50,8 +53,13 @@ public class UserServiceImpI implements UserService {
   }
 
   @Override
-  public UserDto getUser(String username) {
+  public UserDTO getUser(String username) {
     return userMapper.toDto(this.loadUserByUsername(username));
+  }
+
+  private User getById(String id) {
+    return userRepository.findById(id)
+        .orElseThrow(() -> new BizException(ExceptionType.USER_NOT_FOUND));
   }
 
   @Override
@@ -61,9 +69,9 @@ public class UserServiceImpI implements UserService {
   }
 
   @Override
-  public String login(UserCreateDto userCreateDto) {
-    final User user = loadUserByUsername(userCreateDto.getUsername());
-    final String providedPassword = userCreateDto.getPassword();
+  public String login(UserLoginDTO userLoginDTO) {
+    final User user = loadUserByUsername(userLoginDTO.getUsername());
+    final String providedPassword = userLoginDTO.getPassword();
 
     if (! passwordEncoder.matches(providedPassword, user.getPassword())) {
       throw new BizException(ExceptionType.USER_PASSWORD_NOT_MATCH);
@@ -83,5 +91,56 @@ public class UserServiceImpI implements UserService {
         .withExpiresAt(
             new Date(System.currentTimeMillis() + AuthenticationConfigConstants.EXPIRATION_TIME))
         .sign(Algorithm.HMAC512(AuthenticationConfigConstants.SECRET.getBytes()));
+  }
+
+  /**
+   * @param id        用户id(雪花算法生成)
+   * @param updateDTO 更新用户信息
+   * @return 更新后的用户信息
+   */
+  @Override
+  public UserDTO update(String id, UserUpdateDTO updateDTO) {
+    try {
+      return userMapper.toDto(userRepository.save(userMapper.updateEntity(getById(id), updateDTO)));
+    } catch (IllegalArgumentException e) {
+      throw new BizException(ExceptionType.USER_UPDATE_FAILED);
+    }
+  }
+
+  /**
+   * 根据id删除用户
+   *
+   * @param id 用户id(雪花算法生成)
+   */
+  @Override
+  public void delete(String id) {
+    try {
+      userRepository.deleteById(id);
+    } catch (IllegalArgumentException e) {
+      throw new BizException(ExceptionType.USER_DELETE_FAILED);
+    }
+  }
+
+  @Override
+  public Page<UserDTO> getUsers(QueryRequest<UserQueryDTO> queryRequest) {
+    BooleanBuilder builder = new BooleanBuilder();
+    if (queryRequest.getQuery() != null) {
+      if (ObjectUtils.isNotEmpty(queryRequest.getQuery().getUsername())) {
+        builder.or(QUser.user.username.containsIgnoreCase(queryRequest.getQuery().getUsername()));
+      }
+      if (ObjectUtils.isNotEmpty(queryRequest.getQuery().getNickname())) {
+        builder.or(QUser.user.nickname.containsIgnoreCase(queryRequest.getQuery().getNickname()));
+      }
+    }
+    return userRepository
+        .findAll(builder, queryRequest.toPage())
+        .map(userMapper :: toDto);
+  }
+
+  @Override
+  public UserDTO getCurrentUser() {
+    return userMapper.toDto(userRepository.findByUsername(
+            SecurityContextHolder.getContext().getAuthentication().getName())
+        .orElseThrow(() -> new BizException(ExceptionType.USER_NOT_FOUND)));
   }
 }

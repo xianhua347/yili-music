@@ -1,22 +1,25 @@
 package com.bilitech.yilimusic.Mapper;
 
-import com.bilitech.yilimusic.Mapper.Dto.UserCreateDto;
-import com.bilitech.yilimusic.Mapper.Dto.UserDto;
+import com.bilitech.yilimusic.DTO.user.UserCreateDTO;
+import com.bilitech.yilimusic.DTO.user.UserDTO;
+import com.bilitech.yilimusic.DTO.user.UserUpdateDTO;
 import com.bilitech.yilimusic.VO.UserVO;
 import com.bilitech.yilimusic.enetity.User;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 import org.springframework.stereotype.Component;
 
-@Mapper(componentModel = "spring")
 @Component
-@SuppressWarnings("all")
+@Mapper(componentModel = "spring")
 public interface UserMapper {
 
-  UserDto toDto(User user);
+  UserDTO toDto(User user);
 
-  UserVO toVo(UserDto userDto);
+  UserVO toVo(UserDTO userDto);
 
   UserVO toVo(User user);
 
-  User createEntity(UserCreateDto userCreateDto);
+  User createEntity(UserCreateDTO userCreateDto);
+
+  User updateEntity(@MappingTarget User user, UserUpdateDTO userUpdateDTO);
 }

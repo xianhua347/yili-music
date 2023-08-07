@@ -1,4 +1,4 @@
-package com.bilitech.yilimusic.VO;
+package com.bilitech.yilimusic.DTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
@@ -6,7 +6,7 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
-public abstract class BaseVO {
+public abstract class BaseDTO {
 
   private String id;
 

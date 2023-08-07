@@ -1,9 +1,9 @@
-package com.bilitech.yilimusic.Mapper.Dto;
+package com.bilitech.yilimusic.DTO.user;
 
 import lombok.Data;
 
 @Data
-public class RoleDto {
+public class RoleDTO {
 
   private String id;
 
