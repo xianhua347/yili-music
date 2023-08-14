@@ -24,25 +24,4 @@ public class ApiResponse<T> implements Serializable {
   public static <T> ApiResponse<T> success() {
     return new ApiResponse<>(200, "Success", null);
   }
-
-  public static <T> ApiResponse<T> error(HttpStatus status, String message) {
-    return new ApiResponse<>(status.value(), message, null);
-  }
-
-  public static <T> ApiResponse<T> error(HttpStatus status, String message, T data) {
-    return new ApiResponse<>(status.value(), message, data);
-  }
-
-  public boolean isSuccess() {
-    return this.code != null && this.code.equals(HttpStatus.OK.value());
-  }
-
-  public boolean isError() {
-    return ! isSuccess();
-  }
-
-  public boolean hasData() {
-    return this.data != null;
-  }
 }
-

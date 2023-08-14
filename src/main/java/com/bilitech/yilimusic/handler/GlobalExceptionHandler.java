@@ -37,12 +37,12 @@ public class GlobalExceptionHandler {
   public ResponseEntity<ErrorResponse> accessDeniedHandler() {
     final ErrorResponse errorResponse = new ErrorResponse();
     errorResponse.setCode(ExceptionType.FORBIDDEN.getCode());
-    errorResponse.setMessage(ExceptionType.UNAUTHORIZED.getMessage());
+    errorResponse.setMessage(ExceptionType.FORBIDDEN.getMessage());
     return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorResponse);
   }
 
   @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-  public ResponseEntity<ErrorResponse> methodNotAllowed(HttpRequestMethodNotSupportedException e) {
+  public ResponseEntity<ErrorResponse> methodNotAllowed() {
     final ErrorResponse errorResponse = new ErrorResponse();
     errorResponse.setCode(ExceptionType.METHOD_NOT_SUPPORTED.getCode());
     errorResponse.setMessage(ExceptionType.METHOD_NOT_SUPPORTED.getMessage());
