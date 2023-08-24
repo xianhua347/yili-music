@@ -2,7 +2,6 @@ package com.bilitech.yilimusic.utils;
 
 import java.io.Serializable;
 import lombok.Data;
-import org.springframework.http.HttpStatus;
 
 @Data
 public class ApiResponse<T> implements Serializable {
