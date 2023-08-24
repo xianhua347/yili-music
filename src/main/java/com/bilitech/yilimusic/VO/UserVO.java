@@ -3,7 +3,6 @@ package com.bilitech.yilimusic.VO;
 import com.bilitech.yilimusic.DTO.user.RoleDTO;
 import com.bilitech.yilimusic.Enums.Gender;
 import java.util.List;
-import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
