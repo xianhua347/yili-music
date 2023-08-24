@@ -12,6 +12,7 @@ import com.bilitech.yilimusic.utils.QueryRequest;
 import com.bilitech.yilimusic.utils.QueryResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import javax.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
@@ -65,6 +66,7 @@ public class UserController {
    */
   @Operation(summary = "获取用户信息根据用户名")
   @GetMapping("{name}")
+  @RolesAllowed("ROLE_ADMIN")
   public ApiResponse<UserVO> get(
       @Parameter(description = "用户名") @PathVariable String name) {
     return ApiResponse.success(userMapper.toVo(userService.getUser(name)));
@@ -91,6 +93,7 @@ public class UserController {
    */
   @Operation(summary = "删除用户")
   @DeleteMapping("{id}")
+  @RolesAllowed({"ROLE_ADMIN","ROLE_USER"})
   public ApiResponse<Void> delete(
       @Parameter(description = "用户id（雪花算法生成）") @PathVariable String id) {
     userService.delete(id);
@@ -106,6 +109,7 @@ public class UserController {
    */
   @Operation(summary = "更新用户信息")
   @PutMapping("{id}")
+  @RolesAllowed({"ROLE_ADMIN","ROLE_USER"})
   public ApiResponse<UserVO> update(
       @Parameter(description = "用户id（雪花算法生成）") @PathVariable String id,
       @RequestBody @Validated UserUpdateDTO user) {
@@ -120,6 +124,7 @@ public class UserController {
    */
   @Operation(summary = "分页查询用户信息")
   @PostMapping("search")
+  @RolesAllowed("ROLE_ADMIN")
   public ApiResponse<QueryResponse<UserVO>> search(
       @RequestBody @Validated QueryRequest<UserQueryDTO> queryRequest) {
     var result = getPageQueryResponse(
@@ -137,6 +142,7 @@ public class UserController {
    */
   @Operation(summary = "获取当前用户信息")
   @GetMapping("/me")
+  @RolesAllowed({"ROLE_ADMIN","ROLE_USER"})
   public ApiResponse<UserVO> getCurrentUser() {
     return ApiResponse.success(userMapper.toVo(userService.getCurrentUser()));
   }

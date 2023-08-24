@@ -2,34 +2,43 @@ package com.bilitech.yilimusic.Filter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.bilitech.yilimusic.Service.UserService;
 import com.bilitech.yilimusic.config.AuthenticationConfigConstants;
+import com.bilitech.yilimusic.enetity.User;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.stereotype.Component;
 
 
 /**
  * 用户权限 JWT token
  */
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
+  private final UserService userService;
 
-  public JWTAuthorizationFilter(AuthenticationManager authenticationManager) {
+  public JWTAuthorizationFilter(AuthenticationManager authenticationManager,
+      UserService userService) {
     super(authenticationManager);
+    this.userService = userService;
   }
 
   /**
-   * @param request
-   * @param response
-   * @param chain
-   * @throws IOException
-   * @throws ServletException
+   * 过滤器
+   * @param request 请求
+   * @param response 响应
+   * @param chain 过滤器链
+   * @throws IOException IO异常
+   * @throws ServletException Servlet异常
    */
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
@@ -50,7 +59,8 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
   }
 
   /**
-   * @param header
+   * 获取用户权限的token
+   * @param header 请求头
    * @return UsernamePasswordAuthenticationToken
    */
   private UsernamePasswordAuthenticationToken getAuthentication(String header) {
@@ -63,8 +73,9 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
           .getSubject();
       //判断用户名是否为空 如果不为空就返回一个用户权限的token
       if (username != null) {
+        User user = userService.loadUserByUsername(username);
         //返回一个用户权限的token
-        return new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
+        return new UsernamePasswordAuthenticationToken(username, null, user.getAuthorities());
       }
     }
     return null;
