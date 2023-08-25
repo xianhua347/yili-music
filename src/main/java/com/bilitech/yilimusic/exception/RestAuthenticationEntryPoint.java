@@ -1,7 +1,7 @@
 package com.bilitech.yilimusic.exception;
 
 import cn.hutool.json.JSONUtil;
-import com.bilitech.yilimusic.Enums.ExceptionType;
+import com.bilitech.yilimusic.enums.ExceptionType;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

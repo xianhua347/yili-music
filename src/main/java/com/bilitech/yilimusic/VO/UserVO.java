@@ -1,7 +1,7 @@
 package com.bilitech.yilimusic.VO;
 
-import com.bilitech.yilimusic.DTO.user.RoleDTO;
-import com.bilitech.yilimusic.Enums.Gender;
+import com.bilitech.yilimusic.DTO.role.RoleDTO;
+import com.bilitech.yilimusic.enums.Gender;
 import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

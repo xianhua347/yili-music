@@ -1,7 +1,8 @@
 package com.bilitech.yilimusic.DTO.user;
 
 import com.bilitech.yilimusic.DTO.BaseDTO;
-import com.bilitech.yilimusic.Enums.Gender;
+import com.bilitech.yilimusic.DTO.role.RoleDTO;
+import com.bilitech.yilimusic.enums.Gender;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Getter;

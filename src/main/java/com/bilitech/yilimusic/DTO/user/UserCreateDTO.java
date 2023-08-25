@@ -1,6 +1,6 @@
 package com.bilitech.yilimusic.DTO.user;
 
-import com.bilitech.yilimusic.Enums.Gender;
+import com.bilitech.yilimusic.enums.Gender;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import lombok.Data;

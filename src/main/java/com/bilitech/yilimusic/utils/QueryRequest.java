@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Map;
 import java.util.stream.Collectors;
 import javax.validation.constraints.Min;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.util.ObjectUtils;
 
 @Data
+@AllArgsConstructor
 @Schema(name = "QueryRequest", description = "查询请求")
 public class QueryRequest<T> {
 

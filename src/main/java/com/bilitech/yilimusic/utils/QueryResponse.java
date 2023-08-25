@@ -2,10 +2,13 @@ package com.bilitech.yilimusic.utils;
 
 import java.util.List;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.domain.Page;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class QueryResponse<T> {
 
   private List<T> list;
@@ -47,5 +50,20 @@ public class QueryResponse<T> {
   public static <T> QueryResponse<T> of(Long total, Integer totalPage, Integer page, Integer size,
       List<T> list) {
     return new QueryResponse<>(list, total, totalPage, page + 1, size);
+  }
+
+  /**
+   * 构造分页结果
+   *
+   * @param page 分页对象
+   * @param <T> 分页对象实体
+   * @return 分页结果
+   */
+  public static <T> QueryResponse<T> of(Page<T> page) {
+    return QueryResponse.of(page.getTotalElements(),page.getTotalPages(),page.getNumber(),page.getSize(),page.getContent());
+  }
+
+  public static <T>  QueryResponse<T> empty(){
+    return new QueryResponse<>();
   }
 }

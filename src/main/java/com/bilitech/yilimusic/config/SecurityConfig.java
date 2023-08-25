@@ -1,9 +1,9 @@
 package com.bilitech.yilimusic.config;
 
 
-import com.bilitech.yilimusic.Filter.JWTAuthorizationFilter;
-import com.bilitech.yilimusic.Service.UserService;
 import com.bilitech.yilimusic.exception.RestAuthenticationEntryPoint;
+import com.bilitech.yilimusic.filter.JWTAuthorizationFilter;
+import com.bilitech.yilimusic.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;

@@ -1,6 +1,6 @@
 package com.bilitech.yilimusic.handler;
 
-import com.bilitech.yilimusic.Enums.ExceptionType;
+import com.bilitech.yilimusic.enums.ExceptionType;
 import com.bilitech.yilimusic.exception.BizException;
 import com.bilitech.yilimusic.exception.ErrorResponse;
 import org.springframework.http.HttpStatus;

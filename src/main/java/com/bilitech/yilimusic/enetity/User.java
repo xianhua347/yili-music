@@ -1,6 +1,6 @@
 package com.bilitech.yilimusic.enetity;
 
-import com.bilitech.yilimusic.Enums.Gender;
+import com.bilitech.yilimusic.enums.Gender;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 import java.util.Collection;
