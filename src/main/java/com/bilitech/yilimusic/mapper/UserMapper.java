@@ -1,4 +1,4 @@
-package com.bilitech.yilimusic.Mapper;
+package com.bilitech.yilimusic.mapper;
 
 import com.bilitech.yilimusic.DTO.user.UserCreateDTO;
 import com.bilitech.yilimusic.DTO.user.UserDTO;

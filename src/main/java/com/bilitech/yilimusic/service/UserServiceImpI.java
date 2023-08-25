@@ -1,4 +1,4 @@
-package com.bilitech.yilimusic.Service;
+package com.bilitech.yilimusic.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -7,15 +7,16 @@ import com.bilitech.yilimusic.DTO.user.UserDTO;
 import com.bilitech.yilimusic.DTO.user.UserLoginDTO;
 import com.bilitech.yilimusic.DTO.user.UserQueryDTO;
 import com.bilitech.yilimusic.DTO.user.UserUpdateDTO;
-import com.bilitech.yilimusic.Enums.ExceptionType;
-import com.bilitech.yilimusic.Mapper.UserMapper;
-import com.bilitech.yilimusic.Repository.UserRepository;
+import com.bilitech.yilimusic.enums.ExceptionType;
+import com.bilitech.yilimusic.mapper.UserMapper;
+import com.bilitech.yilimusic.repository.UserRepository;
 import com.bilitech.yilimusic.config.AuthenticationConfigConstants;
 import com.bilitech.yilimusic.enetity.QUser;
 import com.bilitech.yilimusic.enetity.User;
 import com.bilitech.yilimusic.exception.BizException;
 import com.bilitech.yilimusic.utils.QueryRequest;
 import com.querydsl.core.BooleanBuilder;
+import io.vavr.control.Option;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
@@ -73,6 +74,17 @@ public class UserServiceImpI implements UserService {
     final User user = loadUserByUsername(userLoginDTO.getUsername());
     final String providedPassword = userLoginDTO.getPassword();
 
+    verifyUserCredentials(providedPassword, user);
+
+    //生成JWT并且返回
+    return JWT.create()
+        .withSubject(user.getUsername())
+        .withExpiresAt(
+            new Date(System.currentTimeMillis() + AuthenticationConfigConstants.EXPIRATION_TIME))
+        .sign(Algorithm.HMAC512(AuthenticationConfigConstants.SECRET.getBytes()));
+  }
+
+  private void verifyUserCredentials(String providedPassword, User user) {
     if (! passwordEncoder.matches(providedPassword, user.getPassword())) {
       throw new BizException(ExceptionType.USER_PASSWORD_NOT_MATCH);
     }
@@ -84,13 +96,6 @@ public class UserServiceImpI implements UserService {
     if (! user.isAccountNonLocked()) {
       throw new BizException(ExceptionType.USER_ACCOUNT_LOCKED);
     }
-
-    //生成JWT并且返回
-    return JWT.create()
-        .withSubject(user.getUsername())
-        .withExpiresAt(
-            new Date(System.currentTimeMillis() + AuthenticationConfigConstants.EXPIRATION_TIME))
-        .sign(Algorithm.HMAC512(AuthenticationConfigConstants.SECRET.getBytes()));
   }
 
   /**
@@ -124,14 +129,11 @@ public class UserServiceImpI implements UserService {
   @Override
   public Page<UserDTO> getUsers(QueryRequest<UserQueryDTO> queryRequest) {
     BooleanBuilder builder = new BooleanBuilder();
-    if (queryRequest.getQuery() != null) {
-      if (ObjectUtils.isNotEmpty(queryRequest.getQuery().getUsername())) {
-        builder.or(QUser.user.username.containsIgnoreCase(queryRequest.getQuery().getUsername()));
-      }
-      if (ObjectUtils.isNotEmpty(queryRequest.getQuery().getNickname())) {
-        builder.or(QUser.user.nickname.containsIgnoreCase(queryRequest.getQuery().getNickname()));
-      }
-    }
+    Option.of(queryRequest.getQuery())
+        .peek(query -> Option.of(query.getUsername())
+            .peek(username -> builder.or(QUser.user.username.containsIgnoreCase(username))))
+        .peek(query -> Option.of(query.getNickname())
+            .peek(nickname -> builder.or(QUser.user.nickname.containsIgnoreCase(nickname))));
     return userRepository
         .findAll(builder, queryRequest.toPage())
         .map(userMapper :: toDto);

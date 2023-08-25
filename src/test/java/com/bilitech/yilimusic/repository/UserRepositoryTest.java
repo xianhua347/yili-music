@@ -1,4 +1,4 @@
-package com.bilitech.yilimusic.Repository;
+package com.bilitech.yilimusic.repository;
 
 import org.springframework.boot.test.context.SpringBootTest;
 

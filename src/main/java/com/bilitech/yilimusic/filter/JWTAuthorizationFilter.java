@@ -1,8 +1,8 @@
-package com.bilitech.yilimusic.Filter;
+package com.bilitech.yilimusic.filter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.bilitech.yilimusic.Service.UserService;
+import com.bilitech.yilimusic.service.UserService;
 import com.bilitech.yilimusic.config.AuthenticationConfigConstants;
 import com.bilitech.yilimusic.enetity.User;
 import java.io.IOException;

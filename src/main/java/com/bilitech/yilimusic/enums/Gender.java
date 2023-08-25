@@ -1,4 +1,4 @@
-package com.bilitech.yilimusic.Enums;
+package com.bilitech.yilimusic.enums;
 
 public enum Gender {
   MALE,

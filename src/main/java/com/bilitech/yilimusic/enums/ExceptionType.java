@@ -1,4 +1,4 @@
-package com.bilitech.yilimusic.Enums;
+package com.bilitech.yilimusic.enums;
 
 import lombok.Getter;
 

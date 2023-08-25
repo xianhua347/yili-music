@@ -1,4 +1,4 @@
-package com.bilitech.yilimusic.Service;
+package com.bilitech.yilimusic.service;
 
 
 import com.bilitech.yilimusic.DTO.user.UserCreateDTO;
