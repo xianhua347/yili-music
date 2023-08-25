@@ -8,6 +8,7 @@ import com.bilitech.yilimusic.utils.ApiResponse;
 import com.bilitech.yilimusic.utils.QueryRequest;
 import com.bilitech.yilimusic.utils.QueryResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import javax.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("roles")
 @RequiredArgsConstructor
+@RolesAllowed("ROLE_ADMIN")
 @Log4j2
 public class RoleController {
 
