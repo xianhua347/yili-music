@@ -18,3 +18,9 @@ spring:
   flyway:
     enabled: true
     baseline-on-migrate: true
+
+springdoc:
+  api-docs:
+    enabled: off
+  swagger-ui:
+    enabled: off
