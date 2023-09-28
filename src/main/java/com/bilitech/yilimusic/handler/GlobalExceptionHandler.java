@@ -3,6 +3,10 @@ package com.bilitech.yilimusic.handler;
 import com.bilitech.yilimusic.enums.ExceptionType;
 import com.bilitech.yilimusic.exception.BizException;
 import com.bilitech.yilimusic.exception.ErrorResponse;
+import com.bilitech.yilimusic.exception.RefreshTokenException;
+import java.util.concurrent.ExecutionException;
+import lombok.extern.log4j.Log4j2;
+import me.zhyd.oauth.exception.AuthException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * 全局异常处理
  */
 @RestControllerAdvice
+@Log4j2
 public class GlobalExceptionHandler {
 
   @ExceptionHandler(value = BizException.class)
@@ -58,5 +63,41 @@ public class GlobalExceptionHandler {
       errorResponse.setMessage(error.getDefaultMessage());
     });
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+  }
+
+  /**
+   * 处理第三方登录异常
+   *
+   * @param e 异常
+   * @return 异常返回体
+   */
+  @ExceptionHandler(value = AuthException.class)
+  public ResponseEntity<ErrorResponse> bizExceptionHandler(AuthException e) {
+    ErrorResponse errorResponse = new ErrorResponse();
+    errorResponse.setCode(e.getErrorCode());
+    errorResponse.setMessage(e.getErrorMsg());
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+  }
+
+  /**
+   * 处理刷新token过期异常
+   *
+   * @param e 异常
+   * @return 异常返回体
+   */
+  @ExceptionHandler(value = RefreshTokenException.class)
+  public ResponseEntity<ErrorResponse> refreshTokenExceptionHandler(RefreshTokenException e) {
+    ErrorResponse errorResponse = new ErrorResponse();
+    errorResponse.setCode(ExceptionType.REFRESH_TOKEN_EXPIRED.getCode());
+    errorResponse.setMessage(e.getMessage());
+    return ResponseEntity.ok().body(errorResponse);
+  }
+
+  @ExceptionHandler(value = {ExecutionException.class, InterruptedException.class})
+  public ResponseEntity<ErrorResponse> concurrentExecution(Exception e) {
+    ErrorResponse errorResponse = new ErrorResponse();
+    errorResponse.setCode(e.hashCode());
+    errorResponse.setMessage(e.getMessage());
+    return ResponseEntity.ok().body(errorResponse);
   }
 }
