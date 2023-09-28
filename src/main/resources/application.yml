@@ -1,3 +1,20 @@
+app:
+  jwt:
+    token-start-with: "Bearer "
+    secret: ENC(yj7gu/uPbGKx3NgNRZ24rpyxN7Fa5054RvhxjgRw6wNqwJLR6Ve+FJ/aMPbpFFmm)
+    access-token-expiration-second: 7200
+    refresh-token-expiration-second: 2592000
+
 spring:
   profiles:
     active: dev
+
+
+jetcache:
+  remote:
+    default:
+      type: redis.springdata
+      keyConvertor: jackson
+      valueEncoder: java
+      valueDecoder: java
+      timeout: 5000
