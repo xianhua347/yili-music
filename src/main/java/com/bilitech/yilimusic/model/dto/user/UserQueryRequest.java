@@ -1,6 +1,7 @@
-package com.bilitech.yilimusic.DTO.user;
+package com.bilitech.yilimusic.model.dto.user;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 
@@ -8,8 +9,9 @@ import lombok.Getter;
  * 用户查询DTO
  */
 @Getter
-@Schema(name = "UserQueryDTO", description = "用户查询DTO")
-public class UserQueryDTO {
+@AllArgsConstructor
+@Schema(name = "UserQueryRequest", description = "用户查询")
+public class UserQueryRequest {
 
   @Schema(description = "用户名")
   private String username;

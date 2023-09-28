@@ -1,10 +1,11 @@
-package com.bilitech.yilimusic.service;
+package com.bilitech.yilimusic.service.ImpI;
 
-import com.bilitech.yilimusic.DTO.role.RoleQueryAndCreateRequest;
-import com.bilitech.yilimusic.enetity.QRole;
-import com.bilitech.yilimusic.enetity.Role;
 import com.bilitech.yilimusic.mapper.RoleMapper;
+import com.bilitech.yilimusic.model.dto.role.RoleQueryAndCreateRequest;
+import com.bilitech.yilimusic.model.enetity.QRole;
+import com.bilitech.yilimusic.model.enetity.Role;
 import com.bilitech.yilimusic.repository.RoleRepository;
+import com.bilitech.yilimusic.service.RoleService;
 import com.bilitech.yilimusic.utils.QueryRequest;
 import com.bilitech.yilimusic.utils.QueryResponse;
 import com.querydsl.core.BooleanBuilder;

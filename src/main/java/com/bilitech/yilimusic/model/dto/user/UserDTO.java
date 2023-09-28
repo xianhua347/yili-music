@@ -1,8 +1,9 @@
-package com.bilitech.yilimusic.DTO.user;
+package com.bilitech.yilimusic.model.dto.user;
 
-import com.bilitech.yilimusic.DTO.BaseDTO;
-import com.bilitech.yilimusic.DTO.role.RoleDTO;
 import com.bilitech.yilimusic.enums.Gender;
+import com.bilitech.yilimusic.model.dto.BaseDTO;
+import com.bilitech.yilimusic.model.dto.role.RoleDTO;
+import com.bilitech.yilimusic.model.enetity.SocialUser;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Getter;
@@ -19,6 +20,10 @@ public class UserDTO extends BaseDTO {
   private String nickname;
 
   private List<RoleDTO> roles;
+
+  private List<SocialUser> socialUsers;
+
+  private String avatar;
 
   private Gender gender;
 

@@ -1,6 +1,7 @@
-package com.bilitech.yilimusic.enetity;
+package com.bilitech.yilimusic.model.enetity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,7 +21,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @ToString
 @RequiredArgsConstructor
 @MappedSuperclass
-public abstract class AbstractEntity {
+public abstract class AbstractEntity implements Serializable {
 
   @Id
   @GeneratedValue(generator = "ksuid")

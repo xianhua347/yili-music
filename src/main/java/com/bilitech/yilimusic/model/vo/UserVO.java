@@ -1,7 +1,5 @@
-package com.bilitech.yilimusic.VO;
+package com.bilitech.yilimusic.model.vo;
 
-import com.bilitech.yilimusic.DTO.role.RoleDTO;
-import com.bilitech.yilimusic.enums.Gender;
 import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -16,11 +14,15 @@ public class UserVO extends BaseVO {
 
   private String nickname;
 
-  private Gender gender;
+  private String gender;
 
   private Boolean locked;
 
   private Boolean enabled;
 
-  private List<RoleDTO> roles;
+  private String avatar;
+
+  private List<RoleVO> roles;
+
+  private List<SocialUserVO> socialUsers;
 }

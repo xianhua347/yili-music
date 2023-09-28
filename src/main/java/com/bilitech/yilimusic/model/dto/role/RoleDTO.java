@@ -1,4 +1,4 @@
-package com.bilitech.yilimusic.DTO.role;
+package com.bilitech.yilimusic.model.dto.role;
 
 import lombok.Data;
 

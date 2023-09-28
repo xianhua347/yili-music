@@ -1,4 +1,4 @@
-package com.bilitech.yilimusic.DTO;
+package com.bilitech.yilimusic.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
