@@ -1,23 +1,24 @@
 package com.bilitech.yilimusic.service;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.bilitech.yilimusic.DTO.user.UserCreateDTO;
-import com.bilitech.yilimusic.DTO.user.UserDTO;
-import com.bilitech.yilimusic.DTO.user.UserLoginDTO;
-import com.bilitech.yilimusic.DTO.user.UserQueryDTO;
-import com.bilitech.yilimusic.DTO.user.UserUpdateDTO;
-import com.bilitech.yilimusic.config.AuthenticationConfigConstants;
-import com.bilitech.yilimusic.enetity.QUser;
-import com.bilitech.yilimusic.enetity.User;
 import com.bilitech.yilimusic.enums.ExceptionType;
 import com.bilitech.yilimusic.exception.BizException;
 import com.bilitech.yilimusic.mapper.UserMapper;
+import com.bilitech.yilimusic.model.dto.user.UserCreateDTO;
+import com.bilitech.yilimusic.model.dto.user.UserDTO;
+import com.bilitech.yilimusic.model.dto.user.UserLoginRequest;
+import com.bilitech.yilimusic.model.dto.user.UserQueryRequest;
+import com.bilitech.yilimusic.model.dto.user.UserUpdateDTO;
+import com.bilitech.yilimusic.model.enetity.QUser;
+import com.bilitech.yilimusic.model.enetity.Role;
+import com.bilitech.yilimusic.model.enetity.User;
+import com.bilitech.yilimusic.repository.RoleRepository;
 import com.bilitech.yilimusic.repository.UserRepository;
+import com.bilitech.yilimusic.utils.JwtUtils;
 import com.bilitech.yilimusic.utils.QueryRequest;
+import com.bilitech.yilimusic.utils.jwt.payload.response.JwtResponse;
 import com.querydsl.core.BooleanBuilder;
 import io.vavr.control.Option;
-import java.util.Date;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,11 +39,18 @@ public class UserServiceImpI implements UserService {
 
   private final PasswordEncoder passwordEncoder;
 
+  private final JwtUtils jwtUtils;
+
+  private final RefreshTokenService refreshTokenService;
+
+  private final RoleRepository roleRepository;
+
   @Override
   public UserDTO create(UserCreateDTO userCreateDto) {
     checkUserName(userCreateDto.getUsername());
-    final User user = userMapper.createEntity(userCreateDto);
-    user.setPassword(passwordEncoder.encode(user.getPassword()));
+    Role role = roleRepository.findByName("ROLE_USER")
+        .getOrElseThrow(() -> new BizException(ExceptionType.ROLE_NOT_FOUND));
+    final User user = userMapper.createEntity(userCreateDto, role, passwordEncoder);
     return userMapper.toDto(userRepository.save(user));
   }
 
@@ -50,11 +58,6 @@ public class UserServiceImpI implements UserService {
     userRepository.findByUsername(username).ifPresent(user -> {
       throw new BizException(ExceptionType.USERNAME_ALREADY_EXIST);
     });
-  }
-
-  @Override
-  public UserDTO getUser(String username) {
-    return userMapper.toDto(this.loadUserByUsername(username));
   }
 
   private User getById(String id) {
@@ -69,18 +72,17 @@ public class UserServiceImpI implements UserService {
   }
 
   @Override
-  public String login(UserLoginDTO userLoginDTO) {
+  public JwtResponse login(UserLoginRequest userLoginDTO) {
     final User user = loadUserByUsername(userLoginDTO.getUsername());
     final String providedPassword = userLoginDTO.getPassword();
 
     verifyUserCredentials(providedPassword, user);
 
-    //生成JWT并且返回
-    return JWT.create()
-        .withSubject(user.getUsername())
-        .withExpiresAt(
-            new Date(System.currentTimeMillis() + AuthenticationConfigConstants.EXPIRATION_TIME))
-        .sign(Algorithm.HMAC512(AuthenticationConfigConstants.SECRET.getBytes()));
+    String accessToken = jwtUtils.generateJwtToken(user);
+
+    var refreshToken = refreshTokenService.createRefreshToken(user.id).getToken();
+
+    return new JwtResponse(accessToken, refreshToken, LocalDateTime.now().plusHours(2));
   }
 
   private void verifyUserCredentials(String providedPassword, User user) {
@@ -126,7 +128,7 @@ public class UserServiceImpI implements UserService {
   }
 
   @Override
-  public Page<UserDTO> getUsers(QueryRequest<UserQueryDTO> queryRequest) {
+  public Page<UserDTO> getUsers(QueryRequest<UserQueryRequest> queryRequest) {
     BooleanBuilder builder = new BooleanBuilder();
     Option.of(queryRequest.getQuery())
         .peek(query -> Option.of(query.getUsername())

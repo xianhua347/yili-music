@@ -1,13 +1,14 @@
 package com.bilitech.yilimusic.service;
 
 
-import com.bilitech.yilimusic.DTO.user.UserCreateDTO;
-import com.bilitech.yilimusic.DTO.user.UserDTO;
-import com.bilitech.yilimusic.DTO.user.UserLoginDTO;
-import com.bilitech.yilimusic.DTO.user.UserQueryDTO;
-import com.bilitech.yilimusic.DTO.user.UserUpdateDTO;
-import com.bilitech.yilimusic.enetity.User;
+import com.bilitech.yilimusic.model.dto.user.UserCreateDTO;
+import com.bilitech.yilimusic.model.dto.user.UserDTO;
+import com.bilitech.yilimusic.model.dto.user.UserLoginRequest;
+import com.bilitech.yilimusic.model.dto.user.UserQueryRequest;
+import com.bilitech.yilimusic.model.dto.user.UserUpdateDTO;
+import com.bilitech.yilimusic.model.enetity.User;
 import com.bilitech.yilimusic.utils.QueryRequest;
+import com.bilitech.yilimusic.utils.jwt.payload.response.JwtResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,24 +17,31 @@ public interface UserService extends UserDetailsService {
 
   UserDTO create(UserCreateDTO userCreateDto);
 
-  UserDTO getUser(String username);
-
-  String login(UserLoginDTO userLoginDTO);
+  /**
+   * @param userLoginRequest 登录参数
+   * @return refreshToken + refreshToken
+   */
+  JwtResponse login(UserLoginRequest userLoginRequest);
 
   /**
-   * @param id 用户id(雪花算法生成)
+   * @param id        用户id(雪花算法生成)
    * @param updateDTO 更新用户信息
    * @return 更新后的用户信息
    */
-  UserDTO update(String id,UserUpdateDTO updateDTO);
+  UserDTO update(String id, UserUpdateDTO updateDTO);
 
   /**
    * 根据id删除用户
+   *
    * @param id 用户id(雪花算法生成)
    */
   void delete(String id);
 
-  Page<UserDTO> getUsers(QueryRequest<UserQueryDTO> queryRequest);
+  /**
+   * @param queryRequest 查询参数
+   * @return 结果集合
+   */
+  Page<UserDTO> getUsers(QueryRequest<UserQueryRequest> queryRequest);
 
   /**
    * 获取当前登录用户
