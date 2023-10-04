@@ -1,7 +1,7 @@
 package com.bilitech.yilimusic.mapper;
 
-import com.bilitech.yilimusic.DTO.role.RoleQueryAndCreateRequest;
-import com.bilitech.yilimusic.enetity.Role;
+import com.bilitech.yilimusic.model.dto.role.RoleQueryAndCreateRequest;
+import com.bilitech.yilimusic.model.enetity.Role;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
