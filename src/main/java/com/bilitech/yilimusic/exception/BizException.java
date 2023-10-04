@@ -1,6 +1,6 @@
 package com.bilitech.yilimusic.exception;
 
-import com.bilitech.yilimusic.Enums.ExceptionType;
+import com.bilitech.yilimusic.enums.ExceptionType;
 import lombok.Getter;
 
 /**

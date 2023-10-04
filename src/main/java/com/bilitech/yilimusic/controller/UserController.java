@@ -1,20 +1,19 @@
 package com.bilitech.yilimusic.controller;
 
-import com.bilitech.yilimusic.DTO.user.UserCreateDTO;
-import com.bilitech.yilimusic.DTO.user.UserLoginDTO;
-import com.bilitech.yilimusic.DTO.user.UserQueryDTO;
-import com.bilitech.yilimusic.DTO.user.UserUpdateDTO;
-import com.bilitech.yilimusic.Mapper.UserMapper;
-import com.bilitech.yilimusic.Service.UserService;
-import com.bilitech.yilimusic.VO.UserVO;
+
+import com.bilitech.yilimusic.mapper.UserMapper;
+import com.bilitech.yilimusic.model.dto.user.UserCreateDTO;
+import com.bilitech.yilimusic.model.dto.user.UserQueryRequest;
+import com.bilitech.yilimusic.model.dto.user.UserUpdateDTO;
+import com.bilitech.yilimusic.model.vo.UserVO;
+import com.bilitech.yilimusic.service.UserService;
 import com.bilitech.yilimusic.utils.ApiResponse;
 import com.bilitech.yilimusic.utils.QueryRequest;
 import com.bilitech.yilimusic.utils.QueryResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import javax.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.NotNull;
-import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @author admin
  */
-@RestController()
+@RestController
 @RequestMapping("users")
 @RequiredArgsConstructor
 public class UserController {
@@ -36,13 +35,6 @@ public class UserController {
   final private UserMapper userMapper;
 
   final private UserService userService;
-
-  @NotNull
-  private static QueryResponse<UserVO> getPageQueryResponse(Page<UserVO> user) {
-    return QueryResponse.of(
-        user.getTotalElements(), user.getTotalPages(),
-        user.getNumber(), user.getSize(), user.getContent());
-  }
 
   /**
    * 注册
@@ -58,32 +50,6 @@ public class UserController {
   }
 
   /**
-   * 获取用户信息根据用户名
-   *
-   * @param name 用户名
-   * @return 用户信息
-   */
-  @Operation(summary = "获取用户信息根据用户名")
-  @GetMapping("{name}")
-  public ApiResponse<UserVO> get(
-      @Parameter(description = "用户名") @PathVariable String name) {
-    return ApiResponse.success(userMapper.toVo(userService.getUser(name)));
-  }
-
-  /**
-   * 登录
-   *
-   * @param userLoginDTO 用户登录信息
-   * @return token
-   */
-  @Operation(summary = "登录")
-  @PostMapping("login")
-  public ApiResponse<String> login(
-      @RequestBody @Validated UserLoginDTO userLoginDTO) {
-    return ApiResponse.success(userService.login(userLoginDTO));
-  }
-
-  /**
    * 删除用户
    *
    * @param id 用户id(雪花算法生成)
@@ -91,6 +57,7 @@ public class UserController {
    */
   @Operation(summary = "删除用户")
   @DeleteMapping("{id}")
+  @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
   public ApiResponse<Void> delete(
       @Parameter(description = "用户id（雪花算法生成）") @PathVariable String id) {
     userService.delete(id);
@@ -106,6 +73,7 @@ public class UserController {
    */
   @Operation(summary = "更新用户信息")
   @PutMapping("{id}")
+  @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
   public ApiResponse<UserVO> update(
       @Parameter(description = "用户id（雪花算法生成）") @PathVariable String id,
       @RequestBody @Validated UserUpdateDTO user) {
@@ -120,14 +88,14 @@ public class UserController {
    */
   @Operation(summary = "分页查询用户信息")
   @PostMapping("search")
+  @RolesAllowed("ROLE_ADMIN")
   public ApiResponse<QueryResponse<UserVO>> search(
-      @RequestBody @Validated QueryRequest<UserQueryDTO> queryRequest) {
-    var result = getPageQueryResponse(
+      @RequestBody @Validated QueryRequest<UserQueryRequest> queryRequest) {
+    return ApiResponse.success(QueryResponse.of(
         userService
             .getUsers(queryRequest)
-            .map(userMapper :: toVo)
-    );
-    return ApiResponse.success(result);
+            .map(userMapper::toVo)
+    ));
   }
 
   /**
@@ -137,6 +105,7 @@ public class UserController {
    */
   @Operation(summary = "获取当前用户信息")
   @GetMapping("/me")
+  @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
   public ApiResponse<UserVO> getCurrentUser() {
     return ApiResponse.success(userMapper.toVo(userService.getCurrentUser()));
   }

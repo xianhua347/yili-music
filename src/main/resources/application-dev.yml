@@ -11,6 +11,24 @@ spring:
     hibernate:
       ddl-auto: update
     properties:
-      hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
-      format_sql: true
-    show-sql: true
+      hibernate:
+        session_factory:
+          statement_inspector: com.bilitech.yilimusic.config.JpaInterceptor
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+  flyway:
+    enabled: false
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+
+justauth:
+  enabled: true
+  type:
+    GITEE:
+      client-id: 375c93eab4ccf8e524e32825e3da277cc951249062afe92062137b9af76842c4
+      client-secret: 1f1b5e462e5b41653b6e7fd6af979ad48b6edeae88de9bbb26220fd55a3ad516
+      redirect-uri: http://www.vite.com:2002/gitee
+  cache:
+    type: default
+logging:
+  level:
+    org.hibernate.type.descriptor.sql.BasicBinder: trace

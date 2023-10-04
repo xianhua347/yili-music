@@ -17,10 +17,10 @@ import org.springframework.stereotype.Component;
 public class KsuidIdentifierGenerator implements IdentifierGenerator {
 
   /**
-   * @param sharedSessionContractImplementor
-   * @param o                                对象
+   * @param sharedSessionContractImplementor session
+   * @param o       对象
    * @return entity PRIMARY Key
-   * @throws HibernateException
+   * @throws HibernateException Hibernate异常
    */
   @Override
   public Serializable generate(SharedSessionContractImplementor sharedSessionContractImplementor,
