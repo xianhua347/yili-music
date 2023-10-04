@@ -11,19 +11,22 @@ yili-music 是一款全栈音乐应用，支持微信小程序和移动应用。
 ## 快速开始
 
 1. 使用 Docker 启动 MySQL 容器：
-   shell
+   ```shell
    docker run -d --name mysql-container -e MYSQL_ROOT_PASSWORD=your_password -p 3306:3306 mysql:latest
+   ```
 2. 使用 Docker 启动 Redis 容器：
-   shell
+   ```shell
    docker run -d --name redis-container -p 6379:6379 redis:latest
+   ```
 3. 打开您喜欢的 IDE（如 IDEA 或 VS Code），配置数据库连接：
-   yml
+   ```yml
    spring:
    datasource:
    driver-class-name: com.mysql.cj.jdbc.Driver
    url:  # 您的数据库 URL
    username: # 您的数据库用户名
    password: # 您的数据库密码
+   ```
 4. 编译项目，编译成功后打开 [Swagger 文档](localhost:8084/swagger-ui.html#/)，找到  `auth/login`  接口，填写用户名和密码（默认为 admin 900602）。
 
 ### 项目特性

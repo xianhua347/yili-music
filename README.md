@@ -11,19 +11,22 @@ yili-music is a full-stack music app that supports both WeChat Mini Program and 
 ## Quick Start
 
 1. Start the MySQL container using Docker:
-   shell
+   ```shell
    docker run -d --name mysql-container -e MYSQL_ROOT_PASSWORD=your_password -p 3306:3306 mysql:latest
+   ```
 2. Start the Redis container using Docker:
-   shell
+   ```shell
    docker run -d --name redis-container -p 6379:6379 redis:latest
+   ```
 3. Open your favorite IDE (IDEA, VS Code) and configure the database connection:
-   yml
+   ```yml
    spring:
    datasource:
    driver-class-name: com.mysql.cj.jdbc.Driver
    url:  # Your database URL
    username: # Your database username
    password: # Your database password
+   ```
 4. Compile the project and after successful compilation, open the [Swagger documentation](localhost:8084/swagger-ui.html#/) and find the  auth/login  endpoint. Fill in the username and password (default is admin 900602).
 
 ### Project Features
