@@ -1,8 +1,8 @@
 package com.bilitech.yilimusic.controller;
 
-import com.bilitech.yilimusic.DTO.role.RoleQueryAndCreateRequest;
-import com.bilitech.yilimusic.enetity.Role;
 import com.bilitech.yilimusic.mapper.RoleMapper;
+import com.bilitech.yilimusic.model.dto.role.RoleQueryAndCreateRequest;
+import com.bilitech.yilimusic.model.enetity.Role;
 import com.bilitech.yilimusic.service.RoleService;
 import com.bilitech.yilimusic.utils.ApiResponse;
 import com.bilitech.yilimusic.utils.QueryRequest;
@@ -31,25 +31,22 @@ public class RoleController {
   private final RoleService roleService;
 
   private final RoleMapper roleMapper;
-
-  @GetMapping
   @Operation(summary = "获取所有角色")
+  @GetMapping
   public ApiResponse<QueryResponse<Role>> getAllRoles(
       @RequestParam(defaultValue = "1", required = false) Integer page,
       @RequestParam(defaultValue = "10", required = false) Integer size) {
     return ApiResponse.success(roleService.findAll(page, size));
   }
-
-  @PostMapping
   @Operation(summary = "创建角色")
+  @PostMapping
   public ApiResponse<Role> createRole(@RequestBody RoleQueryAndCreateRequest role) {
     log.debug("REST request to save Role : {}", role);
 
     return ApiResponse.success(roleService.save(role));
   }
-
-  @PutMapping("/{id}")
   @Operation(summary = "更新角色")
+  @PutMapping("{id}")
   public ApiResponse<String> updateRole(
       @PathVariable(value = "id") final String id,
       @RequestBody RoleQueryAndCreateRequest role) {
@@ -60,17 +57,15 @@ public class RoleController {
     roleService.updateRole(entity);
     return ApiResponse.success();
   }
-
-  @DeleteMapping("/{id}")
   @Operation(summary = "删除角色")
+  @DeleteMapping("{id}")
   public ApiResponse<String> deleteRole(@PathVariable String id) {
     log.debug("REST request to delete Role : {}", id);
     roleService.deleteById(id);
     return ApiResponse.success();
   }
-
-  @GetMapping("search")
   @Operation(summary = "条件查询角色")
+  @GetMapping("search")
   public ApiResponse<QueryResponse<Role>> search(
       @RequestParam(defaultValue = "1", required = false) Integer page,
       @RequestParam(defaultValue = "10", required = false) Integer size,
