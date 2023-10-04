@@ -53,7 +53,8 @@ public class QueryRequest<T> {
     } else {
       return PageRequest.of(page - 1, size,
           Sort.by(sorts.entrySet().stream()
-              .map(entry -> new Sort.Order(Direction.fromString(entry.getValue().name()), entry.getKey()))
+              .map(entry -> new Sort.Order(Direction.fromString(entry.getValue().name()),
+                  entry.getKey()))
               .collect(Collectors.toList())));
     }
   }
