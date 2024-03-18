@@ -1,4 +1,4 @@
-name: Deploy to Server
+name: Deploy Project
 env:
   REGISTRY: docker.io
   CONTAINER_NAME: ${{ github.event.repository.name }}
